@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+<style>
+    *{
+        box-sizing: border-box;
+    }
+
+    body{
+        font-family: sans-serif;
+    }
+
+    .scene {
+        max-width: 300px;
+        max-height: 300px;
+        width: 100%;
+        height: 100%;
+        margin: 80px;
+        perspective: 800px;
+        border:1px solid black
+    }
+
+    .cube {
+        width: 300px;
+        height: 300px;
+        position: relative;
+        transform-style: preserve-3d;
+        transform: translateZ(-150px) rotateY(90deg);
+        transition: transform 0.7s;
+    }
+
+    .cube__face {
+        position: absolute;
+        width: 300px;
+        height: 300px;
+
+        font-size: 40px;
+        font-weight: bold;
+        color: white;
+        text-align: center;
+    
+        -webkit-user-select: none;  
+        -moz-user-select: none;    
+        -ms-user-select: none;      
+        user-select: none;
+
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+
+    .cube__face--front {
+        background-image: url("1.png");
+            
+    }
+
+    .cube__face--right {
+        background-image: url("Different-300x300-pixels-depth-images-of-the-same-person-Invalid-no-data-pixels-have.png");
+    }
+
+    .cube__face--back {
+        background-image: url("download.png");
+    }
+
+    .cube__face--left {
+        background-image: url("no-image250.png");
+    }
+
+    .cube__face--front {
+        transform: rotateY(0deg) translateZ(150px);
+    }
+
+    .cube__face--right {
+        transform: rotateY(90deg) translateZ(150px);
+    }
+
+    .cube__face--back {
+        transform: rotateY(180deg) translateZ(150px);
+    }
+
+    .cube__face--left {
+        transform: rotateY(-90deg) translateZ(150px);
+    }
+
+</style>
+
+<body>
+    <div class="scene">
+        <div class="cube" style="transform: translateZ(-150px) rotateY(90deg)">
+            <a href="#" class="cube__face cube__face--front"></a>
+            <a href="#" class="cube__face cube__face--back"></a>
+            <a href="#" class="cube__face cube__face--right"></a>
+            <a href="#" class="cube__face cube__face--left"></a>   
+        </div>
+        <div
+                style="display: block;
+                margin: 0px;
+                padding: 0px;
+                border-radius: 0px;
+                border: 0px;
+                max-width: none;
+                max-height: none;
+                min-width: 0px;
+                min-height: 0px;
+                background-image: none;
+                background-color: transparent;
+                overflow: visible;
+                width: 96%;
+                height: 1px;
+                position: absolute;
+                top: 50%;
+                left: 6px;">
+                <a
+                    style="display: block; margin: 0px; padding: 0px; border-radius: 0px; border: 0px; max-width: none; max-height: none; min-width: 0px; min-height: 0px; background-image: none; background-color: transparent; overflow: visible; width: 34px; height: 34px; position: absolute; top: -17px; right: 0px; opacity: 0.4; cursor: pointer;">
+                    <img onclick="goRight()"
+                        src="left-btn.png"
+                        style="display: block; margin: 0px; padding: 0px; border-radius: 0px; border: 0px; max-width: none; max-height: none; min-width: 0px; min-height: 0px; background-image: none; background-color: transparent; overflow: visible; width: 34px; height: 34px; position: relative; transform: scaleX(-1);">
+                    </a>
+                    <a
+                    style="z-index:9999;display: block; margin: 0px; padding: 0px; border-radius: 0px; border: 0px; max-width: none; max-height: none; min-width: 0px; min-height: 0px; background-image: none; background-color: transparent; overflow: visible; width: 34px; height: 34px; position: absolute; top: -17px; left: 0px; opacity: 0.4; cursor: pointer;">
+                    <img onclick="goLeft()"
+                        src="left-btn.png"
+                        style="z-index:9999;display: block; margin: 0px; padding: 0px; border-radius: 0px; border: 0px; max-width: none; max-height: none; min-width: 0px; min-height: 0px; background-image: none; background-color: transparent; overflow: visible; width: 34px; height: 34px; position: relative;">
+                    </a>
+            </div>
+    </div>
+
+    
+
+
+    
+
+</body>
+<script>
+    var cube = document.querySelector('.cube');
+    var count = 0;
+    let deg = 0;
+
+    function goLeft(){
+        count = Math.round(deg/90);
+        count++;;
+        deg = count*45;
+        cube.style.transition = "transform 0.35s";
+        cube.style.transform = "translateZ(-340px) rotateY("+deg/2+"deg)";
+        cube.style.transform = "translateZ(-340px) rotateY("+(deg+45)+"deg)";
+        //cube.style.transform = "translateZ(-150px) rotateY("+deg/2+"deg)";
+        let translate = 150;
+        /*let animate1 = setInterval(()=>{ //behem 350ms snizit translateZ o 1px kazde 2ms a pak to same naopak
+            
+                console.log(translate);
+                cube.style.transform = "translateZ(-"+translate+"px) rotateY("+deg+"deg)";
+                translate+=2;
+                
+                if(translate > 340){
+                    clearInterval(animate1);
+                }
+        }, 2);*/
+    }
+
+    function goRight(){
+        count = Math.round(deg/90);
+        count--;
+        deg = count*90;
+        cube.style.transition = "transform 0.7s";
+        cube.style.transform = "translateZ(-150px) rotateY("+deg+"deg)";
+    }
+
+    var offset = 0, startX;
+    
+    cube.onmousedown = function(evt) {
+        console.log("down");
+        var x = evt.pageX;      
+        startX = evt.pageX - offset;
+        console.log(startX);
+        
+    }
+    cube.onmouseup = function(){
+        console.log("up");
+        count = Math.round(deg/90);
+        startX = null;
+    }
+    cube.ondragover = function(evt){
+        if(startX){
+            offset = evt.pageX - startX;
+            
+            let px = Math.round(offset*0.3+150);
+            console.log(offset, px);
+            cube.style.transition = "transform 0s";
+            cube.style.transform = "translateZ(-"+px+"px) rotateY("+offset+"deg)";
+        }
+    }
+
+
+</script>
+</html>
