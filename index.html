@@ -1,9 +1,4 @@
-<!DOCTYPE html>
-<html>
 
-<head>
-
-</head>
 <style>
     *{
         box-sizing: border-box;
@@ -28,8 +23,6 @@
         height: 300px;
         position: relative;
         transform-style: preserve-3d;
-        transform: translateZ(-150px) rotateY(90deg);
-        transition: transform 0.7s;
     }
 
     .cube__face {
@@ -88,9 +81,8 @@
 
 </style>
 
-<body>
     <div class="scene">
-        <div class="cube" style="transform: translateZ(-150px) rotateY(90deg)">
+        <div class="cube" style="transform: translateZ(-150px) rotateY(0deg)">
             <a href="#" class="cube__face cube__face--front"></a>
             <a href="#" class="cube__face cube__face--back"></a>
             <a href="#" class="cube__face cube__face--right"></a>
@@ -130,43 +122,61 @@
     </div>
 
     
-
-
-    
-
-</body>
 <script>
     var cube = document.querySelector('.cube');
-    var count = 0;
     let deg = 0;
+    let animate1 = null;
+    let animate2 = null;
 
     function goLeft(){
-        count = Math.round(deg/90);
-        count++;;
-        deg = count*45;
-        cube.style.transition = "transform 0.35s";
-        cube.style.transform = "translateZ(-340px) rotateY("+deg/2+"deg)";
-        cube.style.transform = "translateZ(-340px) rotateY("+(deg+45)+"deg)";
-        //cube.style.transform = "translateZ(-150px) rotateY("+deg/2+"deg)";
+        //deg += 90;
+        cube.style.transition = "transform 0.15s";
         let translate = 150;
-        /*let animate1 = setInterval(()=>{ //behem 350ms snizit translateZ o 1px kazde 2ms a pak to same naopak
-            
-                console.log(translate);
-                cube.style.transform = "translateZ(-"+translate+"px) rotateY("+deg+"deg)";
-                translate+=2;
-                
-                if(translate > 340){
-                    clearInterval(animate1);
-                }
-        }, 2);*/
+        clearInterval(animate1);
+        animate1 = setInterval(animate11, 1);
+        function animate11(){
+            translate+=10;
+            deg+=3.46
+            console.log(translate, deg);
+            cube.style.transform = "translateZ(-"+translate+"px) rotateY("+(deg)+"deg)";            
+            if(translate > 400){
+                clearInterval(animate1);
+                let animate2 = setInterval(()=>{
+                    translate-=10;
+                    cube.style.transform = "translateZ(-"+translate+"px) rotateY("+(deg)+"deg)";
+                    if(translate < 150){
+                        clearInterval(animate2);
+                    }
+                }, 1)
+            }
+        }
+        console.log(deg);
+      
     }
 
     function goRight(){
-        count = Math.round(deg/90);
-        count--;
-        deg = count*90;
-        cube.style.transition = "transform 0.7s";
-        cube.style.transform = "translateZ(-150px) rotateY("+deg+"deg)";
+        deg -= 90;
+        cube.style.transition = "transform 0.15s";
+        let translate = 150;
+        clearInterval(animate1);
+        animate1 = setInterval(animate11, 1);
+        function animate11(){
+            translate+=10;
+            //deg+=3.455
+            console.log(translate, deg);
+            cube.style.transform = "translateZ(-"+translate+"px) rotateY("+(deg)+"deg)";            
+            if(translate > 400){
+                clearInterval(animate1);
+                let animate2 = setInterval(()=>{
+                    translate-=10;
+                    cube.style.transform = "translateZ(-"+translate+"px) rotateY("+(deg)+"deg)";
+                    if(translate < 150){
+                        clearInterval(animate2);
+                    }
+                }, 1)
+            }
+        }
+        console.log(deg);
     }
 
     var offset = 0, startX;
@@ -194,6 +204,4 @@
         }
     }
 
-
 </script>
-</html>
