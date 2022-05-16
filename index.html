@@ -108,13 +108,13 @@
                 left: 6px;">
                 <a
                     style="display: block; margin: 0px; padding: 0px; border-radius: 0px; border: 0px; max-width: none; max-height: none; min-width: 0px; min-height: 0px; background-image: none; background-color: transparent; overflow: visible; width: 34px; height: 34px; position: absolute; top: -17px; right: 0px; opacity: 0.4; cursor: pointer;">
-                    <img onclick="goRight()"
+                    <img onclick="goLeft()"
                         src="left-btn.png"
                         style="display: block; margin: 0px; padding: 0px; border-radius: 0px; border: 0px; max-width: none; max-height: none; min-width: 0px; min-height: 0px; background-image: none; background-color: transparent; overflow: visible; width: 34px; height: 34px; position: relative; transform: scaleX(-1);">
                     </a>
                     <a
                     style="z-index:9999;display: block; margin: 0px; padding: 0px; border-radius: 0px; border: 0px; max-width: none; max-height: none; min-width: 0px; min-height: 0px; background-image: none; background-color: transparent; overflow: visible; width: 34px; height: 34px; position: absolute; top: -17px; left: 0px; opacity: 0.4; cursor: pointer;">
-                    <img onclick="goLeft()"
+                    <img onclick="goRight()"
                         src="left-btn.png"
                         style="z-index:9999;display: block; margin: 0px; padding: 0px; border-radius: 0px; border: 0px; max-width: none; max-height: none; min-width: 0px; min-height: 0px; background-image: none; background-color: transparent; overflow: visible; width: 34px; height: 34px; position: relative;">
                     </a>
@@ -124,27 +124,25 @@
     
 <script>
     var cube = document.querySelector('.cube');
-    let deg = 0;
+    let deg = 0; //stupne otoceni kostky
     let animate1 = null;
     let animate2 = null;
 
-    function goLeft(){
-        //deg += 90;
+    function goRight(){ //otočí kostku o 90deg doprava
+        deg += 90;
         cube.style.transition = "transform 0.15s";
         let translate = 150;
         clearInterval(animate1);
         animate1 = setInterval(animate11, 1);
         function animate11(){
-            translate+=10;
-            deg+=3.46
-            console.log(translate, deg);
+            translate+=15;
             cube.style.transform = "translateZ(-"+translate+"px) rotateY("+(deg)+"deg)";            
-            if(translate > 400){
+            if(translate >= 480){
                 clearInterval(animate1);
                 let animate2 = setInterval(()=>{
                     translate-=10;
                     cube.style.transform = "translateZ(-"+translate+"px) rotateY("+(deg)+"deg)";
-                    if(translate < 150){
+                    if(translate <= 150){
                         clearInterval(animate2);
                     }
                 }, 1)
@@ -154,23 +152,21 @@
       
     }
 
-    function goRight(){
+    function goLeft(){ //otočí kostku o 90deg doprava
         deg -= 90;
         cube.style.transition = "transform 0.15s";
         let translate = 150;
         clearInterval(animate1);
         animate1 = setInterval(animate11, 1);
         function animate11(){
-            translate+=10;
-            //deg+=3.455
-            console.log(translate, deg);
+            translate+=15;
             cube.style.transform = "translateZ(-"+translate+"px) rotateY("+(deg)+"deg)";            
-            if(translate > 400){
+            if(translate >= 480){
                 clearInterval(animate1);
                 let animate2 = setInterval(()=>{
                     translate-=10;
                     cube.style.transform = "translateZ(-"+translate+"px) rotateY("+(deg)+"deg)";
-                    if(translate < 150){
+                    if(translate <= 150){
                         clearInterval(animate2);
                     }
                 }, 1)
@@ -178,29 +174,81 @@
         }
         console.log(deg);
     }
+/*
+    var offset = 0, startX, startX2;
+    var translate_offset = 0;
+    
+    cube.ondragstart = function(e) {
+        var x = e.pageX;      
+        startX = e.pageX - offset;  
+        startX2 = e.pageX - translate_offset;  
+    }
 
-    var offset = 0, startX;
+    cube.onmouseup = function(){
+        startX2 = null;
+        startX = null;
+    }
+
+    cube.ondragleave = function(){
+        //offset = 0;
+        translate_offset = 0;
+        deg += offset;
+    }
+
+    let prevX = -1;
+    cube.ondragover = function(e){
+        if(startX){
+            offset = e.pageX - startX;
+            translate_offset = e.pageX - startX2;
+            //offset = e.pageX - startX;
+            cube.style.transition = "transform 0s";
+
+            if(prevX == -1){
+                prevX = e.pageX;
+                return false;
+            }
+            if(prevX > e.pageX) { //pohyb doleva
+                cube.style.transform = "translateZ(-"+150+"px) rotateY("+offset+"deg)"; 
+                
+            }
+            else if(prevX < e.pageX) { //pohyb doprava
+                cube.style.transform = "translateZ(-"+150+"px) rotateY("+offset+"deg)"; 
+            }
+            
+            console.log(deg, offset, translate_offset)
+
+            prevX = e.pageX;
+        }
+    }
+*/
+    var offset = 0, startX; 
+
+/*
+    v offsetu jsou stupne o kolik uzivatel otocil kostku
+*/
     
     cube.onmousedown = function(evt) {
-        console.log("down");
         var x = evt.pageX;      
         startX = evt.pageX - offset;
         console.log(startX);
         
     }
     cube.onmouseup = function(){
-        console.log("up");
-        count = Math.round(deg/90);
         startX = null;
+    }
+    cube.ondragend = function(){
+        
+
     }
     cube.ondragover = function(evt){
         if(startX){
             offset = evt.pageX - startX;
-            
-            let px = Math.round(offset*0.3+150);
-            console.log(offset, px);
+            console.log(offset);
             cube.style.transition = "transform 0s";
-            cube.style.transform = "translateZ(-"+px+"px) rotateY("+offset+"deg)";
+            cube.style.transform = "translateZ(-"+150+"px) rotateY("+offset+"deg)"; 
+            /* 
+            tady je treba dynamicky menit translateZ když je kostka otocena v půlce tak translateZ by melo byt 400px
+            */ 
         }
     }
 
