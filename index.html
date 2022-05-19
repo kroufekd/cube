@@ -13,9 +13,7 @@
         max-height: 300px;
         width: 100%;
         height: 100%;
-        margin: 80px;
         perspective: 800px;
-        border:1px solid black
     }
 
     .cube {
@@ -23,22 +21,19 @@
         height: 300px;
         position: relative;
         transform-style: preserve-3d;
+            
     }
 
     .cube__face {
         position: absolute;
         width: 300px;
         height: 300px;
+        cursor: grab;
 
         font-size: 40px;
         font-weight: bold;
         color: white;
         text-align: center;
-    
-        -webkit-user-select: none;  
-        -moz-user-select: none;    
-        -ms-user-select: none;      
-        user-select: none;
 
         -webkit-background-size: cover;
         -moz-background-size: cover;
@@ -79,150 +74,157 @@
         transform: rotateY(-90deg) translateZ(150px);
     }
 
-</style>
+    #btn-div{
+        display: block;
+        margin: 0px;
+        padding: 0px;
+        border-radius: 0px;
+        border: 0px;
+        max-width: none;
+        max-height: none;
+        min-width: 0px;
+        min-height: 0px;
+        background-image: none;
+        background-color: transparent;
+        overflow: visible;
+        width: 96%;
+        height: 1px;
+        position: absolute;
+        top: 50%;
+        left: 6px;
+    }
+    #left-a-btn{
+        display: block;
+        margin: 0px;
+        padding: 0px;
+        border-radius: 0px;
+        border: 0px;
+        max-width: none;
+        max-height: none;
+        min-width: 0px;
+        min-height: 0px;
+        background-image: none;
+        background-color: transparent;
+        overflow: visible;
+        width: 34px;
+        height: 34px;
+        position: absolute;
+        top: -17px;
+        right: 0px; 
+        opacity: 0.4;
+        cursor: pointer;
+    }
+    #right-a-btn{
+        z-index:9999;display: block; margin: 0px; padding: 0px; border-radius: 0px; border: 0px; max-width: none; max-height: none; min-width: 0px; min-height: 0px; background-image: none; background-color: transparent; overflow: visible; width: 34px; height: 34px; position: absolute; top: -17px; left: 0px; opacity: 0.4; cursor: pointer;
+    }
+    #left-btn{
+        display: block; margin: 0px; padding: 0px; border-radius: 0px; border: 0px; max-width: none; max-height: none; min-width: 0px; min-height: 0px; background-image: none; background-color: transparent; overflow: visible; width: 34px; height: 34px; position: relative; transform: scaleX(-1);
+    }
+    #right-btn{
+        z-index:9999;
+        display: block;
+        margin: 0px;
+        padding: 0px;
+        border-radius: 0px;
+        border: 0px;
+        max-width: none;
+        max-height: none;
+        min-width: 0px;
+        min-height: 0px;
+        background-image: none;
+        background-color: whi;
+        overflow: visible;
+        width: 34px;
+        height: 34px;
+        position: relative;
+    }
+    a:active{
+        cursor: none;
+    }
+    #right-btn:hover{
 
+    }
+
+</style>
     <div class="scene">
-        <div class="cube" style="transform: translateZ(-150px) rotateY(0deg)">
+        <div class="cube" style="transform: translateZ(-150px) rotateY(0deg)" data-pos="0">
             <a href="#" class="cube__face cube__face--front"></a>
             <a href="#" class="cube__face cube__face--back"></a>
             <a href="#" class="cube__face cube__face--right"></a>
             <a href="#" class="cube__face cube__face--left"></a>   
         </div>
-        <div
-                style="display: block;
-                margin: 0px;
-                padding: 0px;
-                border-radius: 0px;
-                border: 0px;
-                max-width: none;
-                max-height: none;
-                min-width: 0px;
-                min-height: 0px;
-                background-image: none;
-                background-color: transparent;
-                overflow: visible;
-                width: 96%;
-                height: 1px;
-                position: absolute;
-                top: 50%;
-                left: 6px;">
-                <a
-                    style="display: block; margin: 0px; padding: 0px; border-radius: 0px; border: 0px; max-width: none; max-height: none; min-width: 0px; min-height: 0px; background-image: none; background-color: transparent; overflow: visible; width: 34px; height: 34px; position: absolute; top: -17px; right: 0px; opacity: 0.4; cursor: pointer;">
+        <div id="btn-div">
+                <a id="left-a-btn">
                     <img onclick="goLeft()"
                         src="left-btn.png"
-                        style="display: block; margin: 0px; padding: 0px; border-radius: 0px; border: 0px; max-width: none; max-height: none; min-width: 0px; min-height: 0px; background-image: none; background-color: transparent; overflow: visible; width: 34px; height: 34px; position: relative; transform: scaleX(-1);">
+                        id="left-btn">
                     </a>
-                    <a
-                    style="z-index:9999;display: block; margin: 0px; padding: 0px; border-radius: 0px; border: 0px; max-width: none; max-height: none; min-width: 0px; min-height: 0px; background-image: none; background-color: transparent; overflow: visible; width: 34px; height: 34px; position: absolute; top: -17px; left: 0px; opacity: 0.4; cursor: pointer;">
+                    <a id="right-a-btn">
                     <img onclick="goRight()"
                         src="left-btn.png"
-                        style="z-index:9999;display: block; margin: 0px; padding: 0px; border-radius: 0px; border: 0px; max-width: none; max-height: none; min-width: 0px; min-height: 0px; background-image: none; background-color: transparent; overflow: visible; width: 34px; height: 34px; position: relative;">
+                        id="right-btn">
                     </a>
             </div>
-    </div>
-
-    
+    </div>    
 <script>
     var cube = document.querySelector('.cube');
-    let deg = 0; //stupne otoceni kostky
     let animate1 = null;
     let animate2 = null;
 
+    function getCurrentPosition(){
+        let cube = document.querySelector('.cube');
+        let pos = cube.getAttribute('data-pos');
+        console.log("actual position:", pos);
+        return pos;
+    }
+
     function goRight(){ //otočí kostku o 90deg doprava
-        deg += 90;
+        let actualDeg = Number(getCurrentPosition());
         cube.style.transition = "transform 0.15s";
         let translate = 150;
         clearInterval(animate1);
         animate1 = setInterval(animate11, 1);
         function animate11(){
             translate+=15;
-            cube.style.transform = "translateZ(-"+translate+"px) rotateY("+(deg)+"deg)";            
+            cube.style.transform = "translateZ(-"+translate+"px) rotateY("+(actualDeg+90)+"deg)";         
             if(translate >= 480){
                 clearInterval(animate1);
                 let animate2 = setInterval(()=>{
-                    translate-=10;
-                    cube.style.transform = "translateZ(-"+translate+"px) rotateY("+(deg)+"deg)";
+                    translate-=15;
+                    cube.style.transform = "translateZ(-"+translate+"px) rotateY("+(actualDeg+90)+"deg)";
                     if(translate <= 150){
                         clearInterval(animate2);
                     }
                 }, 1)
             }
         }
-        console.log(deg);
-      
+        cube.setAttribute("data-pos", actualDeg + 90);
     }
 
     function goLeft(){ //otočí kostku o 90deg doprava
-        deg -= 90;
+        let actualDeg = Number(getCurrentPosition());
         cube.style.transition = "transform 0.15s";
         let translate = 150;
         clearInterval(animate1);
         animate1 = setInterval(animate11, 1);
         function animate11(){
             translate+=15;
-            cube.style.transform = "translateZ(-"+translate+"px) rotateY("+(deg)+"deg)";            
+            cube.style.transform = "translateZ(-"+translate+"px) rotateY("+(actualDeg-90)+"deg)";   
             if(translate >= 480){
                 clearInterval(animate1);
                 let animate2 = setInterval(()=>{
                     translate-=10;
-                    cube.style.transform = "translateZ(-"+translate+"px) rotateY("+(deg)+"deg)";
+                    cube.style.transform = "translateZ(-"+translate+"px) rotateY("+(actualDeg-90)+"deg)";
                     if(translate <= 150){
                         clearInterval(animate2);
                     }
                 }, 1)
             }
         }
-        console.log(deg);
+        cube.setAttribute("data-pos", actualDeg - 90);
     }
-/*
-    var offset = 0, startX, startX2;
-    var translate_offset = 0;
-    
-    cube.ondragstart = function(e) {
-        var x = e.pageX;      
-        startX = e.pageX - offset;  
-        startX2 = e.pageX - translate_offset;  
-    }
-
-    cube.onmouseup = function(){
-        startX2 = null;
-        startX = null;
-    }
-
-    cube.ondragleave = function(){
-        //offset = 0;
-        translate_offset = 0;
-        deg += offset;
-    }
-
-    let prevX = -1;
-    cube.ondragover = function(e){
-        if(startX){
-            offset = e.pageX - startX;
-            translate_offset = e.pageX - startX2;
-            //offset = e.pageX - startX;
-            cube.style.transition = "transform 0s";
-
-            if(prevX == -1){
-                prevX = e.pageX;
-                return false;
-            }
-            if(prevX > e.pageX) { //pohyb doleva
-                cube.style.transform = "translateZ(-"+150+"px) rotateY("+offset+"deg)"; 
-                
-            }
-            else if(prevX < e.pageX) { //pohyb doprava
-                cube.style.transform = "translateZ(-"+150+"px) rotateY("+offset+"deg)"; 
-            }
-            
-            console.log(deg, offset, translate_offset)
-
-            prevX = e.pageX;
-        }
-    }
-*/
     var offset = 0, startX; 
-
+    let actualPos;
 /*
     v offsetu jsou stupne o kolik uzivatel otocil kostku
 */
@@ -230,26 +232,56 @@
     cube.onmousedown = function(evt) {
         var x = evt.pageX;      
         startX = evt.pageX - offset;
-        console.log(startX);
-        
+        actualPos = Number(getCurrentPosition());     
     }
     cube.onmouseup = function(){
-        startX = null;
+        
     }
     cube.ondragend = function(){
+        /* dorotovat kostku po zkončení dragu do nejbližší pozice */
+        let avaiableRotations = [];
+        for (let i = 0; i < 100; i++) {
+            let deg = i * 90;
+            avaiableRotations.push(deg)
+        }
+        for (let i = 1; i < 100; i++) {
+            let deg = i * -90;
+            avaiableRotations.push(deg)
+        }
+ 
         
-
+        cube.setAttribute("data-pos", closestValue((Number(getCurrentPosition()) + offset), avaiableRotations));
+        cube.style.transition = "transform 0.15s";
+        cube.style.transform = "translateZ(-150px) rotateY("+(Number(getCurrentPosition()))+"deg)"; 
+        
+        startX = null;
+        
+        offset = 0;
     }
     cube.ondragover = function(evt){
         if(startX){
             offset = evt.pageX - startX;
-            console.log(offset);
             cube.style.transition = "transform 0s";
-            cube.style.transform = "translateZ(-"+150+"px) rotateY("+offset+"deg)"; 
+            cube.style.transform = "translateZ(-150px) rotateY("+(Number(getCurrentPosition()) + offset)+"deg)"; 
+            
+            
             /* 
             tady je treba dynamicky menit translateZ když je kostka otocena v půlce tak translateZ by melo byt 400px
             */ 
         }
     }
+    function closestValue(val, array) {
+        let closest = array.sort( (a, b) => Math.abs(val - a) - Math.abs(val - b) )[0];
+        return closest;
+    }
+
+    setInterval(()=>{
+        if(Math.random() < 0.5){
+            goLeft();
+        }else{
+            goRight();
+        }
+
+    }, 15000)
 
 </script>
